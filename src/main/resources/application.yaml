@@ -1,0 +1,17 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 9528
+
+spring:
+  profiles:
+    active: local
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
