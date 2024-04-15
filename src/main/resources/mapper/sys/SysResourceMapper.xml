@@ -3,7 +3,7 @@
 <mapper namespace="com.vigna.business.sys.mapper.SysResourceMapper">
 
     <!-- resultMap映射 -->
-    <resultMap id="BaseResultMap" type="com.vigna.business.sys.domain.SysResource">
+    <resultMap id="BaseResultMap" type="com.vigna.business.sys.domain.SysRouter">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
         <result column="ui_path" property="uiPath" jdbcType="VARCHAR"/>
@@ -48,7 +48,7 @@
         t.delete_time
     </sql>
 
-    <select id="getUserRoutes" resultType="com.vigna.business.sys.domain.SysResource"
+    <select id="getUserRoutes" resultType="com.vigna.business.sys.domain.SysRouter"
             parameterType="java.lang.String">
         SELECT
             m.id,

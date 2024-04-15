@@ -36,13 +36,12 @@ import static com.vigna.business.sys.tables.TSysUserDef.T_SYS_USER;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         implements SysUserService {
 
-//    final SysRoleService sysRoleService;
     private final SysUserMapper sysUserMapper;
 
-//    加密盐
+    //    加密盐
     String EncryptionKey = "Azir-11";
 
-    public SysUserServiceImpl(SysUserMapper sysUserMapper){
+    public SysUserServiceImpl(SysUserMapper sysUserMapper) {
         this.sysUserMapper = sysUserMapper;
     }
 
@@ -88,8 +87,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             updateLastLoginInfo(loginUser);
 
             return new LoginResult(token, token);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("登录异常: {}", e.getMessage());
             throw new GlobalException(e.getMessage());
         }
@@ -97,13 +95,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     }
 
     public SysUser getByName(String nickName) {
-//        return getOne(Wrappers.<SysUser>lambdaQuery().eq(SysUser::getNickName, nickName));
-        return new SysUser();
+        return sysUserMapper.selectOneByQuery(QueryWrapper.create()
+                .select()
+                .from(T_SYS_USER)
+                .where(T_SYS_USER.USER_NAME.eq(nickName)));
     }
 
     public SysUser getByUsername(String userName) {
-//        return getOne(Wrappers.<SysUser>lambdaQuery().eq(SysUser::getUserName, userName));
-        return new SysUser();
+        return sysUserMapper.selectOneByQuery(QueryWrapper.create()
+                .select()
+                .from(T_SYS_USER)
+                .where(T_SYS_USER.USER_NAME.eq(userName)));
     }
 
     private Result<String> checkoutUser(CreateUserParam userParam) {
@@ -112,15 +114,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             return Result.failed(ResultCode.ERROR_USER_NAME_REPEAT);
         }
 
-        SysUser dbUserNameInfo;
-
-        dbUserNameInfo = getByName(userParam.getNickName());
-        if (dbUserNameInfo != null) {
+//        校验用户名和昵称是否重复
+        if (getByName(userParam.getNickName()) != null) {
             return Result.failed(ResultCode.ERROR_NAME_REPEAT);
         }
 
-        dbUserNameInfo = getByUsername(userParam.getUserName());
-        if (dbUserNameInfo != null) {
+        if (getByUsername(userParam.getUserName()) != null) {
             return Result.failed(ResultCode.ERROR_USER_NAME_REPEAT);
         }
         return Result.success();
@@ -131,11 +130,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         SysUser user = new SysUser();
         String password = createUserParam.getPassword();
         // 处理加密密码
-//        String enPassword = encoder.encode(password);
+        String enPassword = SaSecureUtil.aesEncrypt(EncryptionKey, password);
 
         user.setNickName(createUserParam.getNickName());
         user.setUserName(createUserParam.getUserName());
-//        user.setPassword(enPassword);
+        user.setPassword(enPassword);
         user.setStatus(StatusEnums.ENABLE.getKey());
 
         return save(user);
@@ -153,31 +152,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result<UserInfoVO> getUserInfo(String authorizationHeader) {
-//        if (authorizationHeader == null || !authorizationHeader.startsWith(jwtTokenUtil.getTokenHead())) {
-//            throw new GlobalException(GlobalExceptionEnum.ERROR_UNAUTHORIZED.getMessage());
-//        }
+    public Result<UserInfoVO> getUserInfo() {
 
         UserInfoVO userInfoVO = new UserInfoVO();
 
-//        try {
-//            String authToken = authorizationHeader.substring(jwtTokenUtil.getTokenHead().length());
-//            String username = jwtTokenUtil.getUserNameFromToken(authToken);
-//            if (username != null) {
-//                // 从数据库中获取用户信息
-//                SysUserDetail userDetails = (SysUserDetail) this.userDetailsService
-//                        .loadUserByUsername(username);
-//
-//                userInfoVO.setRoles(userDetails.getRoles());
-//                userInfoVO.setUserName(userDetails.getUsername());
-//                userInfoVO.setUserId(userDetails.getSysUser().getId());
-//
-//                return Result.success(userInfoVO);
-//            }
-//        } catch (Exception e) {
-//            log.info("获取用户信息失败: {}", e.getMessage());
-//            ExceptionUtil.throwEx(GlobalExceptionEnum.ERROR_UNABLE_GET_USER);
-//        }
-        return Result.failed();
+        Long userId = StpUtil.getLoginIdAsLong();
+        SysUser sysUser = sysUserMapper.selectOneById(userId);
+        if (sysUser == null) {
+            throw new GlobalException("用户不存在");
+        }
+
+        userInfoVO.setRoles(StpUtil.getRoleList());
+        userInfoVO.setUserName(sysUser.getUserName());
+        userInfoVO.setUserId(userId);
+
+        return Result.success(userInfoVO);
     }
 }

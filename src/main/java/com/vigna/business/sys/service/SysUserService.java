@@ -43,5 +43,5 @@ public interface SysUserService extends IService<SysUser> {
      *
      * @return UserInfoVO
      */
-    Result<UserInfoVO> getUserInfo(String authorizationHeader);
+    Result<UserInfoVO> getUserInfo();
 }

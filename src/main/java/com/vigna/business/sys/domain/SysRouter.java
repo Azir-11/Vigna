@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 //@TableName(value = "t_sys_resource", autoResultMap = true)
-public class SysResource implements Serializable {
+public class SysRouter implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
