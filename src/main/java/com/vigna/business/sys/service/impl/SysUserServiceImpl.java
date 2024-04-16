@@ -153,12 +153,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Result<UserInfoVO> getUserInfo() {
-
         UserInfoVO userInfoVO = new UserInfoVO();
 
         Long userId = StpUtil.getLoginIdAsLong();
         SysUser sysUser = sysUserMapper.selectOneById(userId);
         if (sysUser == null) {
+            log.error("系统异常，有个用户通过了登录验证，但是在数据库中找不到他的用户信息");
             throw new GlobalException("用户不存在");
         }
 

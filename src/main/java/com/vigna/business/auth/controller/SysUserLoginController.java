@@ -1,8 +1,10 @@
 package com.vigna.business.auth.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.vigna.business.auth.param.SysUserLoginParam;
 import com.vigna.business.auth.vo.LoginResult;
 import com.vigna.business.sys.service.SysUserService;
+import com.vigna.business.sys.vo.UserInfoVO;
 import com.vigna.common.annotation.SysLogInterface;
 import com.vigna.common.api.Result;
 import com.vigna.common.enums.BusinessType;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "SysUserLoginController")
+@Tag(name = "权限模块")
 @RequestMapping("/auth")
 public class SysUserLoginController {
 
@@ -26,24 +28,16 @@ public class SysUserLoginController {
     @PostMapping(value = "/login")
     @SysLogInterface(title = "登录", businessType = BusinessType.GRANT)
     public Result<LoginResult> login(@RequestBody SysUserLoginParam sysUserLoginParam) {
-//         获取系统验证码开关
-//         boolean sw = Boolean.parseBoolean(ParamResolver.getStr(ConfigEnums.SYS_CAPTCHA_IMG.name(), "true"));
-//         if (sw) {
-//         验证码校验
-//         boolean captcha = sysCaptchaService.validate(sysUserLoginParam.getUuid(),
-//                 sysUserLoginParam.getCode());
-//         if (!captcha) {
-//             return Result.failed("验证码不正确");
-//         }
-//         }
+//        TODO: 验证码校验
         return Result.success(sysUserService.login(sysUserLoginParam.getUserName(),
                 sysUserLoginParam.getPassword()));
     }
-//
-//    @Operation(summary = "获取用户信息")
-//    @GetMapping(value = "/getUserInfo")
-//    public Result<UserInfoVO> getUserInfo(@RequestHeader("Authorization") String authorizationHeader) {
-//        return sysUserService.getUserInfo(authorizationHeader);
-//    }
+
+    @Operation(summary = "获取用户信息")
+    @GetMapping(value = "/getUserInfo")
+    @SaCheckLogin
+    public Result<UserInfoVO> getUserInfo() {
+        return sysUserService.getUserInfo();
+    }
 
 }
