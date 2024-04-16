@@ -72,7 +72,6 @@
             <artifactId>sa-token-spring-boot3-starter</artifactId>
             <version>${satoken.version}</version>
         </dependency>
-
         <!-- Sa-Token 整合 Redis （使用 jdk 默认序列化方式） -->
         <dependency>
             <groupId>cn.dev33</groupId>
@@ -87,7 +86,11 @@
             <exclusions>
                 <exclusion>
                     <groupId>cn.hutool</groupId>
-                    <artifactId>hutool-all</artifactId>
+                    <artifactId>hutool-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.hutool</groupId>
+                    <artifactId>hutool-json</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
