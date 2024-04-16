@@ -16,6 +16,7 @@
     <properties>
         <java.version>21</java.version>
 
+        <satoken.version>1.37.0</satoken.version>
         <mybatisflex.version>1.8.7</mybatisflex.version>
         <postgresql.version>42.7.2</postgresql.version>
         <jwt.version>0.9.1</jwt.version>
@@ -49,12 +50,6 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
@@ -75,25 +70,31 @@
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-spring-boot3-starter</artifactId>
-            <version>1.37.0</version>
+            <version>${satoken.version}</version>
         </dependency>
 
         <!-- Sa-Token 整合 Redis （使用 jdk 默认序列化方式） -->
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-redis</artifactId>
-            <version>1.37.0</version>
+            <version>${satoken.version}</version>
         </dependency>
 
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-jwt</artifactId>
-            <version>1.37.0</version>
+            <version>${satoken.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>cn.hutool</groupId>
+                    <artifactId>hutool-all</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>com.mybatis-flex</groupId>
-            <artifactId>mybatis-flex-spring-boot-starter</artifactId>
+            <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
             <version>${mybatisflex.version}</version>
         </dependency>
 
@@ -178,9 +179,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>3.2.4</version>
         </dependency>
 
         <!-- java8、9 以上缺少 jaxb-api 所以需要补充pom -->
