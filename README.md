@@ -8,6 +8,17 @@
 JDK21、MyBatis-Flex、Sa-token安全框架等，适配 [soybean-admin](https://gitee.com/honghuangdc/soybean-admin)
 开发的简单权限系统。
 
+## TODO
+
+- [ ] 修改数据库ID为漂移雪花
+- [ ] 完成用户管理，支持注册
+- [ ] 完成角色管理
+- [ ] 完成菜单管理
+- [ ] 完成日志管理
+- [ ] 完成切换账号功能
+- [ ] 补充文档
+- [ ] 完成登录的验证码功能
+
 ## **技术选型：**
 
 | 依赖           | 版本     |
@@ -30,7 +41,7 @@ JDK21、MyBatis-Flex、Sa-token安全框架等，适配 [soybean-admin](https://
 - 执行doc/sql/vigna.sql文件，初始化数据
 - 修改application-local.yml，更新postgresql数据库连接信息
 - Eclipse、IDEA运行PeaApplication.java，则可启动项目
-- Swagger文档路径：项目启动之后看看控制台输出就知道了
+- Swagger文档路径：项目启动之后看看控制台输出就知道了，项目没有给它套好看的外壳，因为我比较推荐直接在ApiFox中导入文档
 
 ## 前端部署
 
@@ -52,5 +63,4 @@ JDK21、MyBatis-Flex、Sa-token安全框架等，适配 [soybean-admin](https://
 ## 注解
 
 - 日志记录注解 @SysLogInterface
-- 权限认证注解 @PreAuthorize("@pre.hasPermission('system:user:add')")
-  目前 权限认证注解 开发并不完善,考虑前端暂未实现权限校验,没有进一步开发
+- 权限相关请看 [Sa-Token](https://sa-token.dev33.cn/)
