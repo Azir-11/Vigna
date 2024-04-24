@@ -72,6 +72,12 @@
             <artifactId>sa-token-spring-boot3-starter</artifactId>
             <version>${satoken.version}</version>
         </dependency>
+        <!-- Sa-Token 整合 SpringAOP 实现注解鉴权 -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-aop</artifactId>
+            <version>${satoken.version}</version>
+        </dependency>
         <!-- Sa-Token 整合 Redis （使用 jdk 默认序列化方式） -->
         <dependency>
             <groupId>cn.dev33</groupId>
