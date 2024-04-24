@@ -14,14 +14,6 @@ import java.util.Map;
 public interface SysUserService extends IService<SysUser> {
 
     /**
-     * 分页获取数据
-     *
-     * @param params 查询参数
-     * @return IPage<SysUserVO>
-     */
-    Page<SysUserVO> getList(Map<String, Object> params);
-
-    /**
      * 登录
      *
      * @param username 用户名
@@ -29,6 +21,22 @@ public interface SysUserService extends IService<SysUser> {
      * @return 生成的JWT的token
      */
     LoginResult login(String username, String password);
+
+    /**
+     * 刷新token
+     *
+     * @param refreshToken 刷新token
+     * @return 生成的JWT的token
+     */
+    LoginResult refreshToken(String refreshToken);
+
+    /**
+     * 分页获取数据
+     *
+     * @param params 查询参数
+     * @return IPage<SysUserVO>
+     */
+    Page<SysUserVO> getList(Map<String, Object> params);
 
     /**
      * 登录

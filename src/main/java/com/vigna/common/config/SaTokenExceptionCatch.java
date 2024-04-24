@@ -15,7 +15,6 @@ public class SaTokenExceptionCatch {
         if (nle.getType().equals(NotLoginException.NOT_TOKEN)) {
             message = "未提供Token";
         } else if (nle.getType().equals(NotLoginException.INVALID_TOKEN)) {
-//            message = "未提供有效的Token";
             message = "登录状态已失效，请重新登录";
         } else if (nle.getType().equals(NotLoginException.TOKEN_TIMEOUT)) {
             message = "登录信息已过期，请重新登录";

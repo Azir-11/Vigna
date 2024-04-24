@@ -50,7 +50,7 @@ public class SwaggerConfig {
     }
 
     // 排除的Authorization的方法名
-    private final Set<String> excludedAuthorizationMethodName = new HashSet<>(Arrays.asList("login", "register"));
+    private final Set<String> excludedAuthorizationMethodName = new HashSet<>(Arrays.asList("login", "register", "refreshToken"));
 
     @Bean
     public OperationCustomizer addGlobalHeaderParameter() {

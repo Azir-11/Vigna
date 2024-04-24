@@ -101,6 +101,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     }
 
+    /**
+     * 刷新token
+     * @param refreshToken 刷新token
+     */
+    @Override
+    public LoginResult refreshToken(String refreshToken) {
+        throw new GlobalException("功能暂未开放");
+    }
+
     public SysUser getByName(String nickName) {
         return sysUserMapper.selectOneByQuery(QueryWrapper.create()
                 .select()

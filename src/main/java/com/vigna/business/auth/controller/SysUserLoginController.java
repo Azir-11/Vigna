@@ -1,7 +1,9 @@
 package com.vigna.business.auth.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.hutool.core.util.StrUtil;
 import com.vigna.business.auth.param.SysUserLoginParam;
+import com.vigna.business.auth.param.SysUserRefreshTokenParam;
 import com.vigna.business.auth.vo.LoginResult;
 import com.vigna.business.sys.service.SysUserService;
 import com.vigna.business.sys.vo.UserInfoVO;
@@ -32,6 +34,18 @@ public class SysUserLoginController {
         return Result.success(sysUserService.login(sysUserLoginParam.getUserName(),
                 sysUserLoginParam.getPassword()));
     }
+
+    @Operation(summary = "刷新token")
+    @PostMapping(value = "/refreshToken")
+    @SysLogInterface(title = "刷新token", businessType = BusinessType.GRANT)
+    public Result<LoginResult> refreshToken(@RequestBody SysUserRefreshTokenParam refreshToken) {
+        if (StrUtil.isBlank(refreshToken.getRefreshToken())) {
+            return Result.failed("refreshToken必填");
+        }
+//        TODO： 校验refreshToken的有效期
+        return Result.success(sysUserService.refreshToken(refreshToken.getRefreshToken()));
+    }
+
 
     @Operation(summary = "获取用户信息")
     @GetMapping(value = "/getUserInfo")

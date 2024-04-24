@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "SysUserController", description = "用户信息控制层")
-//@RequestMapping("/sys/user")
+@Tag(name = "用户管理", description = "用户信息控制层")
 @RequestMapping("/systemManage")
 public class SysUserController {
 

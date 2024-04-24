@@ -18,10 +18,4 @@ public class SysUserLoginParam {
 	@Schema(description = "验证码")
 	private String code;
 
-	/**
-	 * 唯一标识
-	 */
-	@Schema(description = "唯一标识")
-	private String uuid = "";
-
 }
