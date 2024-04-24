@@ -7,6 +7,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.mybatisflex.core.paginate.Page;
 import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.core.update.UpdateChain;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 import com.vigna.business.auth.vo.LoginResult;
 import com.vigna.business.sys.domain.SysUser;
@@ -55,9 +56,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
      * 更新最后一次登录时间/登录IP
      */
     private void updateLastLoginInfo(SysUser sysUser) {
-        sysUser.setLastLoginIp(IpUtil.getHostIp());
-        sysUser.setLastLoginTime(DateUtil.date().toLocalDateTime());
-        updateById(sysUser);
+        boolean update = UpdateChain.of(SysUser.class)
+                .set(T_SYS_USER.LAST_LOGIN_IP, IpUtil.getHostIp())
+                .set(T_SYS_USER.LAST_LOGIN_TIME, DateUtil.date().toLocalDateTime())
+                .where(SysUser::getId).eq(sysUser.getId())
+                .update();
+
+        if (!update) {
+            log.error("更新用户最后登录时间失败");
+        }
     }
 
     @Override
