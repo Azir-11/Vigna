@@ -1,5 +1,8 @@
 package com.vigna;
 
+import com.mybatisflex.core.audit.AuditManager;
+import com.mybatisflex.core.audit.ConsoleMessageCollector;
+import com.mybatisflex.core.audit.MessageCollector;
 import com.vigna.common.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +23,11 @@ public class VignaApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
+        // 开启Mybatis-flex审计功能
+        MessageCollector collector = new ConsoleMessageCollector();
+        AuditManager.setMessageCollector(collector);
+        AuditManager.setAuditEnable(true);
+        
         ConfigurableApplicationContext context = SpringApplication.run(VignaApplication.class, args);
         String hostIp = IpUtil.getHostIp();
         String port = context.getEnvironment().getProperty("server.port");
