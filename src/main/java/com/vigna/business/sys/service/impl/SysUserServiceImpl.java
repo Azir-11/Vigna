@@ -55,11 +55,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     /**
      * 更新最后一次登录时间/登录IP
      */
-    private void updateLastLoginInfo(SysUser sysUser) {
+    private void updateLastLoginInfo(Long userId) {
         boolean update = UpdateChain.of(SysUser.class)
                 .set(T_SYS_USER.LAST_LOGIN_IP, IpUtil.getHostIp())
                 .set(T_SYS_USER.LAST_LOGIN_TIME, DateUtil.date().toLocalDateTime())
-                .where(SysUser::getId).eq(sysUser.getId())
+                .where(SysUser::getId).eq(userId)
                 .update();
 
         if (!update) {
@@ -91,7 +91,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             String token = StpUtil.getTokenValue();
 
             // 更新最后一次登录时间
-            updateLastLoginInfo(loginUser);
+            updateLastLoginInfo(loginUser.getId());
 
             return new LoginResult(token, token);
         } catch (Exception e) {

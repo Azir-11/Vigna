@@ -2,6 +2,7 @@ package com.vigna.business.sys.domain;
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mybatisflex.annotation.Table;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@Table(value = "t_sys_user")
 public class SysUser implements Serializable {
 
 	@Serial
