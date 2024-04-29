@@ -44,9 +44,6 @@ public class SysMenuVO extends Meta implements Serializable {
     @Schema(description = "布局方式")
     private String component;
 
-    @Schema(description = "权重顺序")
-    private Integer weight;
-
     @Schema(description = "children")
     private List<SysMenuVO> children;
 

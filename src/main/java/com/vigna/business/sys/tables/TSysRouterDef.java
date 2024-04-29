@@ -38,11 +38,6 @@ public class TSysRouterDef extends TableDef {
     public final QueryColumn UI_PATH = new QueryColumn(this, "ui_path");
 
     /**
-     * 权重顺序
-     */
-    public final QueryColumn WEIGHT = new QueryColumn(this, "weight");
-
-    /**
      * 创建者名称
      */
     public final QueryColumn CREATE_BY = new QueryColumn(this, "create_by");
@@ -120,7 +115,7 @@ public class TSysRouterDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, PARENT_ID, UI_PATH, MENU_TYPE, STATUS, MENU_NAME, ROUTE_NAME, ROUTE_PATH, COMPONENT, META, WEIGHT, CREATE_ID, CREATE_BY, UPDATE_ID, UPDATE_BY, CREATE_TIME, UPDATE_TIME, IS_DELETED, DELETE_TIME};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, PARENT_ID, UI_PATH, MENU_TYPE, STATUS, MENU_NAME, ROUTE_NAME, ROUTE_PATH, COMPONENT, META, CREATE_ID, CREATE_BY, UPDATE_ID, UPDATE_BY, CREATE_TIME, UPDATE_TIME, IS_DELETED, DELETE_TIME};
 
     public TSysRouterDef() {
         super("", "t_sys_router");

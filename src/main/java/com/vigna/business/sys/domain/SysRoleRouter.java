@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SysRoleResource implements Serializable {
+public class SysRoleRouter implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

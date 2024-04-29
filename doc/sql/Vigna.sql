@@ -281,7 +281,6 @@ CREATE TABLE "public"."t_sys_router" (
   "route_path" varchar(255) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "component" varchar(40) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "meta" varchar(455) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
-  "weight" int4,
   "create_id" int8 NOT NULL,
   "create_by" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "update_id" int8 NOT NULL,
@@ -301,7 +300,6 @@ COMMENT ON COLUMN "public"."t_sys_router"."route_name" IS '路由名称';
 COMMENT ON COLUMN "public"."t_sys_router"."route_path" IS '菜单路由为path，其他为唯一标识';
 COMMENT ON COLUMN "public"."t_sys_router"."component" IS '组件';
 COMMENT ON COLUMN "public"."t_sys_router"."meta" IS '元数据';
-COMMENT ON COLUMN "public"."t_sys_router"."weight" IS '权重顺序';
 COMMENT ON COLUMN "public"."t_sys_router"."create_id" IS '创建者ID';
 COMMENT ON COLUMN "public"."t_sys_router"."create_by" IS '创建者名称';
 COMMENT ON COLUMN "public"."t_sys_router"."update_id" IS '修改者ID';

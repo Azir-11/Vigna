@@ -43,6 +43,4 @@ public class SysRouter implements Serializable {
     @Schema(description = "元数据")
     private String meta;
 
-    @Schema(description = "权重顺序")
-    private Integer weight;
 }
